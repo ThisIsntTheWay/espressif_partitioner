@@ -25,13 +25,19 @@ th {
 }
 
 #first {
-    width: 80%;
-    float:left;
-    margin-right: 10px;
-    border: 1px solid blue;
+  width: 80%;
+  float:left;
+  margin-right: 10px;
+  border: 1px solid blue;
 }
 
 #second {
-    border: 1px solid green;
-    overflow: hidden;
+  border: 1px solid green;
+  overflow: hidden;
+}
+
+#third {
+  top: 10px;
+  position: relative;
+  clear: both;
 }
