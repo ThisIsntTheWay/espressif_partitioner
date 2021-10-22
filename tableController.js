@@ -1,5 +1,8 @@
 var tableHeaders = new Array();
 var hasChanged = false;
+var firstRun = true;
+
+var actualRows = 0;
 
 tableHeaders = ['', 'Name', 'Type', 'Subtype', 'Offset', 'Size', 'Flags'];
 
@@ -21,6 +24,7 @@ function createTable() {
 }
 
 function addRow() {
+	actualRows++;
 	var empTab = document.getElementById('partitionTable');
 
 	var rowCnt = empTab.rows.length;
@@ -66,6 +70,28 @@ function addRow() {
 					
 				td.appendChild(drop);
 				break;
+				
+			case 4:
+				if (firstRun) {
+					var ele = document.createElement('input');
+					ele.setAttribute('type', 'text');
+					ele.setAttribute('class', 'tableTextBox');
+					ele.setAttribute('value', '0x9000');
+					ele.setAttribute('disabled','');
+
+					td.appendChild(ele);
+					
+					firstRun = false;
+				} else {
+					var ele = document.createElement('input');
+					ele.setAttribute('type', 'text');
+					ele.setAttribute('class', 'tableTextBox');
+					ele.setAttribute('value', '');
+
+					td.appendChild(ele);
+					break;
+				}
+				break;
 			
 			case 5:
 				var ele = document.createElement('input');
@@ -105,6 +131,8 @@ function addRow() {
 function removeRow(oButton) {
 	var empTab = document.getElementById('partitionTable');
 	empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // buttton -> td -> tr
+	
+	actualRows--;
 }
 
 function setChangedFlag() {
@@ -125,22 +153,30 @@ function changeDropSelection(dropDown) {
 		
 		switch (val) {
 			case "data":
-				var o1 = document.createElement('option');
-					o1.setAttribute('value','ota');
-					o1.innerHTML = "ota";
-					dropDown.appendChild(o1); 
-				var o2 = document.createElement('option');
-					o2.setAttribute('value','phy');
-					o2.innerHTML = "app";
-					dropDown.appendChild(o2);
-				var o3 = document.createElement('option');
-					o3.setAttribute('value','nvs');
-					o3.innerHTML = "nvs";
-					dropDown.appendChild(o3);
-				var o4 = document.createElement('option');
-					o4.setAttribute('value','nvs_keys');
-					o4.innerHTML = "nvs_keys";
-					dropDown.appendChild(o4);
+				var o = document.createElement('option');
+					o.setAttribute('value','ota');
+					o.innerHTML = "ota";
+					dropDown.appendChild(o); 
+				var o = document.createElement('option');
+					o.setAttribute('value','phy');
+					o.innerHTML = "app";
+					dropDown.appendChild(o);
+				var o = document.createElement('option');
+					o.setAttribute('value','nvs');
+					o.innerHTML = "nvs";
+					dropDown.appendChild(o);
+				var o = document.createElement('option');
+					o.setAttribute('value','nvs_keys');
+					o.innerHTML = "nvs_keys";
+					dropDown.appendChild(o);
+				var o = document.createElement('option');
+					o.setAttribute('value','spiffs');
+					o.innerHTML = "spiffs";
+					dropDown.appendChild(o);
+				var o = document.createElement('option');
+					o.setAttribute('value','fat');
+					o.innerHTML = "fat";
+					dropDown.appendChild(o);
 				break;
 			
 			case "app":
@@ -191,11 +227,16 @@ function getData() {
 			
 			for (var c = 1, m = t.rows[r].cells.length; c < m; c++) {
 				var data = "";
-				
 				if (r == 0) {
 					data = t.rows[r].cells[c].innerText;
-				} else {
-					data = t.rows[r].cells[c].getElementsByClassName("tableTextBox")[0].value;
+				} else {						
+					console.log("Current c: " + c);
+					switch (c) {
+						case 2: data = t.rows[r].cells[c].getElementsByTagName("select")[0].value; break;
+						case 3: data = t.rows[r].cells[c].getElementsByTagName("select")[0].value; break;
+						case 6: data = t.rows[r].cells[c].getElementsByTagName("input")[0].checked ? 'encrypted' : ''; break;
+						default: data = t.rows[r].cells[c].getElementsByClassName("tableTextBox")[0].value; break;
+					}
 				}
 				
 				console.log("> Column " + c + " data: " + data);
