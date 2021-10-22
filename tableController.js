@@ -1,4 +1,6 @@
 var tableHeaders = new Array();
+var hasChanged = false;
+
 tableHeaders = ['', 'Name', 'Type', 'SubType', 'Offset', 'Size', 'Flags'];
 
 function createTable() {
@@ -30,26 +32,53 @@ function addRow() {
 		td = tr.insertCell(c);
 
 		// Populate table with elements
-		if (c == 0) {   // if its the first column of the table.
-			// add a button control.
-			var button = document.createElement('input');
+		switch (c) {
+			case 0:			// add a button control.
+				var button = document.createElement('input');
 
-			// set the attributes.
-			button.setAttribute('type', 'button');
-			button.setAttribute('value', '-');
+				// set the attributes.
+				button.setAttribute('type', 'button');
+				button.setAttribute('value', '-');
 
-			// add button's "onclick" event.
-			button.setAttribute('onclick', 'removeRow(this)');
+				// add button's "onclick" event.
+				button.setAttribute('onclick', 'removeRow(this)');
 
-			td.appendChild(button);
-		}
-		else {
-			var ele = document.createElement('input');
-			ele.setAttribute('type', 'text');
-			ele.setAttribute('class', 'tableTextBox');
-			ele.setAttribute('value', '');
+				td.appendChild(button);
+				break;
+				
+			case 2:
+				var drop = document.createElement('select');
+				drop.setAttribute('id', 'partitionType');
+				drop.setAttribute('onclick', 'setChangedFlag()');
+				
+				var o1 = document.createElement('option');
+					o1.setAttribute('value','data')
+					o1.innerHTML = "data";
+					drop.appendChild(o1); 
+				var o2 = document.createElement('option');
+					o2.setAttribute('value','app')
+					o2.innerHTML = "app";
+					drop.appendChild(o2);
+					
+				td.appendChild(drop);
+				break;
+				
+			case 3:
+				var drop = document.createElement('select');
+				drop.setAttribute('id', 'partitionSubType');
+				drop.setAttribute('onclick', 'changeDropSelection(this)');
+					
+				td.appendChild(drop);
+				break;
+				
+			default:
+				var ele = document.createElement('input');
+				ele.setAttribute('type', 'text');
+				ele.setAttribute('class', 'tableTextBox');
+				ele.setAttribute('value', '');
 
-			td.appendChild(ele);
+				td.appendChild(ele);
+				break;
 		}
 	}
 }
@@ -58,6 +87,70 @@ function addRow() {
 function removeRow(oButton) {
 	var empTab = document.getElementById('partitionTable');
 	empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // buttton -> td -> tr
+}
+
+function setChangedFlag() {
+	if (hasChanged) {
+		hasChanged = false;
+	}
+}
+
+function changeDropSelection(dropDown) {
+	if (!hasChanged) {
+		var val = dropDown.parentElement.parentElement.cells[2].getElementsByTagName("select")[0].value
+		
+		var child = dropDown.lastElementChild;
+		while (child) {
+			dropDown.removeChild(child);
+			child = dropDown.lastElementChild;
+		}
+		
+		switch (val) {
+			case "data":
+				var o1 = document.createElement('option');
+					o1.setAttribute('value','ota')
+					o1.innerHTML = "ota";
+					dropDown.appendChild(o1); 
+				var o2 = document.createElement('option');
+					o2.setAttribute('value','phy')
+					o2.innerHTML = "app";
+					dropDown.appendChild(o2);
+				var o3 = document.createElement('option');
+					o3.setAttribute('value','nvs')
+					o3.innerHTML = "nvs";
+					dropDown.appendChild(o3);
+				var o4 = document.createElement('option');
+					o4.setAttribute('value','nvs_keys')
+					o4.innerHTML = "nvs_keys";
+					dropDown.appendChild(o4);
+				break;
+			
+			case "app":
+				var o1 = document.createElement('option');
+					o1.setAttribute('value','factory')
+					o1.innerHTML = "factory";
+					dropDown.appendChild(o1); 
+				var o2 = document.createElement('option');
+					o2.setAttribute('value','ota_0')
+					o2.innerHTML = "ota_0";
+					dropDown.appendChild(o2);
+				var o3 = document.createElement('option');
+					o3.setAttribute('value','ota_1')
+					o3.innerHTML = "ota_2";
+					dropDown.appendChild(o3);
+				var o4 = document.createElement('option');
+					o4.setAttribute('value','ota_2')
+					o4.innerHTML = "ota_2";
+					dropDown.appendChild(o4);
+				var o4 = document.createElement('option');
+					o4.setAttribute('value','ota_3')
+					o4.innerHTML = "ota_3";
+					dropDown.appendChild(o4);
+				break;
+		}
+		
+		hasChanged = true;
+	}
 }
 
 function getData() {
