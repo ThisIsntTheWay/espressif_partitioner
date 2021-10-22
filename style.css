@@ -9,4 +9,16 @@ div {
   width: 50%;
   border: 1px solid red;
   padding: 10px;
+  overflow: hidden;
+}
+
+#first {
+    width: 50%;
+    float:left;
+    margin-right: 10px;
+    border: 1px solid blue;
+}
+#second {
+    border: 1px solid green;
+    overflow: hidden;
 }
