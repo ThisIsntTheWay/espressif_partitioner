@@ -35,12 +35,8 @@ function addRow() {
 		switch (c) {
 			case 0:			// add a button control.
 				var button = document.createElement('input');
-
-				// set the attributes.
 				button.setAttribute('type', 'button');
 				button.setAttribute('value', '-');
-
-				// add button's "onclick" event.
 				button.setAttribute('onclick', 'removeRow(this)');
 
 				td.appendChild(button);
