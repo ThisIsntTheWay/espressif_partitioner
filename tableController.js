@@ -190,7 +190,7 @@ function changeDropSelection(dropDown) {
 					dropDown.appendChild(o2);
 				var o3 = document.createElement('option');
 					o3.setAttribute('value','ota_1');
-					o3.innerHTML = "ota_2";
+					o3.innerHTML = "ota_1";
 					dropDown.appendChild(o3);
 				var o4 = document.createElement('option');
 					o4.setAttribute('value','ota_2');
