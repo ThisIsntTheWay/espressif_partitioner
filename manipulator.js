@@ -1,6 +1,8 @@
 var rawSize = 0;
 var referenceElementCaller;
 
+var totalSize = 0;
+
 function changeSize(sizeField) {
 	var overlay = document.getElementById("overlay");
 	referenceElementCaller = sizeField;
@@ -14,6 +16,16 @@ function applySize() {
 		overlay.style.display = "none";
 		referenceElementCaller.value = document.getElementById("sizeHex").value;
 	}
+	
+	updateStatistics();
+}
+
+function updateStatistics() {
+	var totalPartDOM = document.getElementById("partCount");
+	var totalSizeDOM = document.getElementById("totalSize");
+	var table = document.getElementById("partitionTable");
+	
+	totalPartDOM.innerHTML = actualRows;
 }
 
 function updateSizeValues(referenceElement) {
