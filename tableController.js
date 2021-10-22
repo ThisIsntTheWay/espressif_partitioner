@@ -1,5 +1,5 @@
 var tableHeaders = new Array();
-tableHeaders = ['', 'Name', 'Type', 'SubType', 'Offset', 'Size', 'Flags', 'Identification'];
+tableHeaders = ['', 'Name', 'Type', 'SubType', 'Offset', 'Size', 'Flags'];
 
 function createTable() {
 	var partitionTable = document.createElement('table');
