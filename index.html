@@ -18,12 +18,12 @@
 			</div>
 			<div id="statisticsLayout">
 				Partition count: <span id="partCount"></span><br>
-				Total size: <span id="totalSize"></span>mb<br>
+				Total size: <span id="totalSize"></span>mb<p>
+				
+				<input type="button" onclick="generateCSV()" value="Generate CSV"><br>
+				<input type="button" onclick="processCSV()" value="Import CSV..."><br>
 			</div>
-			
-			<p>			
-			<input type="button" onclick="validatePartitionTable()" value="Generate CSV">
-			
+						
 			<div id="descriptionLayout">
 				<b>Partition types</b><br>
 				<i>Please also see <a target="_blank" href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/partition-tables.html">the official espressif docs</a>.</i><br>
