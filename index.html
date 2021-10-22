@@ -1,15 +1,17 @@
 <html>
 	<head>
 		<title>Espressif partitioner</title>
-		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="style.css"/>
+		<script src="tableController.js"></script>
 	</head>
 	
-	<body>
+	<body onLoad="createTable()">
 		<div class="mainContainer">
 			Hello world<p>
 			
 			<div id="first">
-				!TABLE!
+				<div id ="partitionTableDiv"></div>
+				<input type="button" id="addRow" value="Add partition" onclick="addRow()" />
 			</div>
 			<div id="second">
 				!STATISTICS!

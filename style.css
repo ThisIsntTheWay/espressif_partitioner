@@ -6,18 +6,31 @@ div {
 
 .mainContainer {
   margin: auto;
-  width: 50%;
+  width: 80%;
   border: 1px solid red;
   padding: 10px;
   overflow: hidden;
 }
 
+td {
+ text-align: center; 
+}
+
+th {
+  margin: 0%;
+}
+
+.tableTextBox {
+  width: 50%;
+}
+
 #first {
-    width: 50%;
+    width: 80%;
     float:left;
     margin-right: 10px;
     border: 1px solid blue;
 }
+
 #second {
     border: 1px solid green;
     overflow: hidden;
