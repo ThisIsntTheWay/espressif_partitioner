@@ -11,18 +11,18 @@
 			<h1>Espressif partition manager</h1>
 			<h3>Create and manage your espressif partition tables.</h3><p>
 			
-			<div id="first">
+			<div id="partitionTableLayout">
 				<div id ="partitionTableDiv"></div>
 				<input type="button" id="addRow" value="Add partition" onclick="addRow()" />
 			</div>
-			<div id="second">
+			<div id="statisticsLayout">
 				!STATISTICS!
 			</div>
 			
 			<p>			
 			<input type="button" value="Generate CSV">
 			
-			<div id="third">
+			<div id="descriptionLayout">
 				<b>Partition types</b><br>
 				<i>Please also see <a target="_blank" href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/partition-tables.html">the official espressif docs</a>.</i><br>
 				The following partitions types are available:
@@ -36,7 +36,7 @@
 				For each type, the following subtypes are available:
 				
 				<p>
-				<table>
+				<table id="descriptionTable">
 					<tr>
 						<th>Type</th>
 						<th>SubType</th>
@@ -45,7 +45,7 @@
 					<tr>
 						<td>data</td>
 						<td>ota</td>
-						<td>OTA partition <b>information</b></td>
+						<td>OTA partition information</td>
 					</tr>
 					<tr>
 						<td>data</td>

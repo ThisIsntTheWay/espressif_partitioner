@@ -16,23 +16,27 @@ td {
  text-align: center; 
 }
 
+td input {
+ text-align: center;
+}
+
 .tableTextBox {
   width: 50%;
 }
 
-#first {
-  width: 80%;
+#partitionTableLayout {
+  width: 70%;
   float:left;
   margin-right: 10px;
   border: 1px solid blue;
 }
 
-#second {
+#statisticsLayout {
   border: 1px solid green;
   overflow: hidden;
 }
 
-#third {
+#descriptionLayout {
   top: 10px;
   position: relative;
   clear: both;
@@ -49,6 +53,7 @@ td {
   bottom: 0;
   background-color: rgba(0,0,0,0.7);
   z-index: 2;
+  cursor: pointer;
 }
 
 #overlayContent {
