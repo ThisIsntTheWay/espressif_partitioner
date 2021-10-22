@@ -79,6 +79,7 @@ function addRow() {
 				ele.setAttribute('value', '');
 
 				td.appendChild(ele);
+				break;
 				
 			default:
 				var ele = document.createElement('input');
