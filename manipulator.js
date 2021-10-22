@@ -25,10 +25,7 @@ function updateSizeValues(referenceElement) {
 	var totalSizeKbDOM = document.getElementById("totalSizeKb");
 	var totalSizeMbDOM = document.getElementById("totalSizeMb");
 	
-	console.log(referenceElement);
-	
 	if (referenceElement.id != "sizeHex") {
-		console.log("WOWEE");
 	} else {
 		rawSize = parseInt(sizeHexDOM.value, 16);
 	}
