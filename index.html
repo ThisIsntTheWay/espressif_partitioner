@@ -3,6 +3,7 @@
 		<title>Espressif partitioner</title>
 		<link rel="stylesheet" href="style.css"/>
 		<script src="tableController.js"></script>
+		<script src="manipulator.js"></script>
 	</head>
 	
 	<body onLoad="createTable(); addRow();">
@@ -44,7 +45,7 @@
 					<tr>
 						<td>data</td>
 						<td>ota</td>
-						<td>OTA partition</td>
+						<td>OTA partition <b>information</b></td>
 					</tr>
 					<tr>
 						<td>data</td>
@@ -77,6 +78,22 @@
 						<td>Reserved for factory use</td>
 					</tr>
 				</table>
+			</div>
+		</div>
+		
+		<div id="overlay">
+			<div id="overlayContent">
+				<h3>Size editor</h3><p>
+				Size: <input type="number" id="sizeValue" onInput="updateSizeValues(this)"></input>
+					<select id="sizeUnit" onchange="updateSizeValues(this)">
+						<option value="b">b</option>
+						<option value="kb">kb</option>
+						<option value="mb">mb</option>
+					</select>
+				<br>
+				As hex: <input type="text" id="sizeHex" onInput="updateSizeValues(this)"></input><p>
+				Total (kb): <b><span id="totalSizeKb">0</span></b>kb<br>
+				Total (mb): <b><span id="totalSizeMb">0</span></b>mb<br>
 			</div>
 		</div>
 	</body>

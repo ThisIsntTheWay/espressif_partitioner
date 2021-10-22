@@ -108,42 +108,42 @@ function changeDropSelection(dropDown) {
 		switch (val) {
 			case "data":
 				var o1 = document.createElement('option');
-					o1.setAttribute('value','ota')
+					o1.setAttribute('value','ota');
 					o1.innerHTML = "ota";
 					dropDown.appendChild(o1); 
 				var o2 = document.createElement('option');
-					o2.setAttribute('value','phy')
+					o2.setAttribute('value','phy');
 					o2.innerHTML = "app";
 					dropDown.appendChild(o2);
 				var o3 = document.createElement('option');
-					o3.setAttribute('value','nvs')
+					o3.setAttribute('value','nvs');
 					o3.innerHTML = "nvs";
 					dropDown.appendChild(o3);
 				var o4 = document.createElement('option');
-					o4.setAttribute('value','nvs_keys')
+					o4.setAttribute('value','nvs_keys');
 					o4.innerHTML = "nvs_keys";
 					dropDown.appendChild(o4);
 				break;
 			
 			case "app":
 				var o1 = document.createElement('option');
-					o1.setAttribute('value','factory')
+					o1.setAttribute('value','factory');
 					o1.innerHTML = "factory";
 					dropDown.appendChild(o1); 
 				var o2 = document.createElement('option');
-					o2.setAttribute('value','ota_0')
+					o2.setAttribute('value','ota_0');
 					o2.innerHTML = "ota_0";
 					dropDown.appendChild(o2);
 				var o3 = document.createElement('option');
-					o3.setAttribute('value','ota_1')
+					o3.setAttribute('value','ota_1');
 					o3.innerHTML = "ota_2";
 					dropDown.appendChild(o3);
 				var o4 = document.createElement('option');
-					o4.setAttribute('value','ota_2')
+					o4.setAttribute('value','ota_2');
 					o4.innerHTML = "ota_2";
 					dropDown.appendChild(o4);
 				var o4 = document.createElement('option');
-					o4.setAttribute('value','ota_3')
+					o4.setAttribute('value','ota_3');
 					o4.innerHTML = "ota_3";
 					dropDown.appendChild(o4);
 				break;
