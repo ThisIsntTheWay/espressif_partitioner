@@ -38,13 +38,14 @@ function validatePartitionTable() {
 		child = errOverlayDOM.lastElementChild;
 	}
 	
+	var sizeVal = parseFloat(totalSizeDOM.innerText)
 	if (totalSizeDOM.getAttributeNames().includes("class")) {
 		var e = document.createElement('b');
-			e.innerHTML = "- Max flash size has been exceeded. Threshold: " + flashMaxSize + "mb";
+			e.innerHTML = "- Max flash size has been exceeded. (Threshold: " + flashMaxSize + "mb)";
 			e.appendChild(document.createElement('br'));
 		errOverlayDOM.appendChild(e);
 		validationPassed = false;
-	} else if (isNaN(totalSizeDOM.value)) {
+	} else if (isNaN(sizeVal) || sizeVal <= 0) {
 		var e = document.createElement('b');
 			e.innerHTML = "- At least one partition has not been assigned a size.";
 			e.appendChild(document.createElement('br'));
@@ -111,8 +112,6 @@ function updateStatistics() {
 	} else {
 		totalSizeDOM.removeAttribute('class');
 	}
-	
-	size = String(size + "mb");
 	
 	totalSizeDOM.innerHTML = size;
 	totalPartDOM.innerHTML = actualRows;
