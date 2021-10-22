@@ -5,7 +5,7 @@
 		<script src="tableController.js"></script>
 	</head>
 	
-	<body onLoad="createTable()">
+	<body onLoad="createTable(); addRow();">
 		<div class="mainContainer">
 			Hello world<p>
 			
@@ -19,6 +19,64 @@
 			
 			<p>			
 			<input type="button" value="Generate CSV">
+			
+			<div id="third">
+				<b>Partition types</b><br>
+				<i>Please also see <a target="_blank" href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/partition-tables.html">the official espressif docs</a>.</i><br>
+				The following partitions types are available:
+				<ul>
+					<li>data</li>
+					<li>app</li>
+				</ul>
+				<p>
+				
+				<b>Subtypes</b><br>
+				For each type, the following subtypes are available:
+				
+				<p>
+				<table>
+					<tr>
+						<th>Type</th>
+						<th>SubType</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td>data</td>
+						<td>ota</td>
+						<td>OTA partition</td>
+					</tr>
+					<tr>
+						<td>data</td>
+						<td>phy</td>
+						<td>PHY initialisation data</td>
+					</tr>
+					<tr>
+						<td>data</td>
+						<td>nvs</td>
+						<td>Non-Volatile Storage</td>
+					</tr>
+					<tr>
+						<td>data</td>
+						<td>nvs_keys</td>
+						<td>NVS encryption keys</td>
+					</tr>
+					<tr>
+						<td>app</td>
+						<td>factory</td>
+						<td>Default app partition</td>
+					</tr>
+					<tr>
+						<td>app</td>
+						<td>ota_n</td>
+						<td>OTA partition (0 to 15)</td>
+					</tr>
+					<tr>
+						<td>app</td>
+						<td>test</td>
+						<td>Reserved for factory use</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</body>
 </html>
