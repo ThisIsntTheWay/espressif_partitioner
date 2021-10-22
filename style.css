@@ -84,3 +84,18 @@ td input {
 #totalSizeMb {
   font-family: "Courier New";
 }
+
+.warning {
+  -webkit-animation: warning 2s infinite;
+  -webkit-animation-iteration-count: infinite; 
+  opacity: 0.7;
+  font-weight: bold;
+}
+
+@-webkit-keyframes warning {
+    0%{ background-color: red; }
+    49%{ background-color: red; }
+    50%{ background-color: transparent; }
+    99%{ background-color: transparent; }
+    100%{ background-color: red; }
+}

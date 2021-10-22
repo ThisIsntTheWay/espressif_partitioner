@@ -214,7 +214,7 @@ function getData() {
 	
 	for (var r = 0, n = t.rows.length - 1; r < n; r++) {
 		var cellLength = t.rows[r].cells.length;
-		console.log("Row: " + r + ", Cell length: " + cellLength);
+		//console.log("Row: " + r + ", Cell length: " + cellLength);
 		
 		// The tables for some reason generate empty rows.
 		// The code with skippedRows will compensate for those:
@@ -230,7 +230,7 @@ function getData() {
 				if (r == 0) {
 					data = t.rows[r].cells[c].innerText;
 				} else {						
-					console.log("Current c: " + c);
+					//console.log("Current c: " + c);
 					switch (c) {
 						case 2: data = t.rows[r].cells[c].getElementsByTagName("select")[0].value; break;
 						case 3: data = t.rows[r].cells[c].getElementsByTagName("select")[0].value; break;
@@ -239,7 +239,7 @@ function getData() {
 					}
 				}
 				
-				console.log("> Column " + c + " data: " + data);
+				//console.log("> Column " + c + " data: " + data);
 				
 				dataArray[index].push(data);
 			}

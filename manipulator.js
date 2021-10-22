@@ -1,8 +1,6 @@
 var rawSize = 0;
 var referenceElementCaller;
 
-var totalSize = 0;
-
 function changeSize(sizeField) {
 	var overlay = document.getElementById("overlay");
 	referenceElementCaller = sizeField;
@@ -21,10 +19,28 @@ function applySize() {
 }
 
 function updateStatistics() {
-	var totalPartDOM = document.getElementById("partCount");
-	var totalSizeDOM = document.getElementById("totalSize");
-	var table = document.getElementById("partitionTable");
+	let totalPartDOM = document.getElementById("partCount");
+	let totalSizeDOM = document.getElementById("totalSize");
+	let table = document.getElementById("partitionTable");
 	
+	let dataArr = getData();
+	
+	// Get all sizes
+	let size = 0;
+	for (var i = 1; i < dataArr.length; i++) {
+		size += parseInt(dataArr[i][4], 16);
+	}
+	
+	size = parseFloat(size / 1000000);
+	if (size > 4) {
+		totalSizeDOM.setAttribute('class','warning');
+	} else {
+		totalSizeDOM.removeAttribute('class');
+	}
+	
+	size = String(size + "mb");
+	
+	totalSizeDOM.innerHTML = size;
 	totalPartDOM.innerHTML = actualRows;
 }
 
