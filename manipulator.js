@@ -8,9 +8,20 @@ function generateCSV() {
 	}
 }
 
+function toggleErrorOverlay() {
+	var overlay = document.getElementById("errorOverlay");
+	if (overlay.style.display == "block") {
+		overlay.style.display = "none";
+	} else {
+		overlay.style.display = "block";
+	}
+}
+
 function validatePartitionTable() {
 	let totalSizeDOM = document.getElementById("totalSize");
+	let errOverlayDOM = document.getElementById("errorOverlayContentReasons");
 	let dataArr = getData();
+	let validationPassed = true;
 	
 	// Blanket data collection
 	let arrMatey = new Array();
@@ -20,23 +31,43 @@ function validatePartitionTable() {
 		flatArray += dataArr[i];
 	}
 	
+	// Prepare error overlay
+	let child = errOverlayDOM.lastElementChild;
+	while (child) {
+		errOverlayDOM.removeChild(child);
+		child = errOverlayDOM.lastElementChild;
+	}
+	
 	if (totalSizeDOM.getAttributeNames().includes("class")) {
-		alert("Max flash size has been exceeded. Threshold: " + flashMaxSize + "mb");
-		return false;
+		var e = document.createElement('b');
+			e.innerHTML = "- Max flash size has been exceeded. Threshold: " + flashMaxSize + "mb";
+			e.appendChild(document.createElement('br'));
+		errOverlayDOM.appendChild(e);
+		validationPassed = false;
 	} else if (isNaN(totalSizeDOM.value)) {
-		alert("At least one partition has not been assigned a size.");
-		return false;
+		var e = document.createElement('b');
+			e.innerHTML = "- At least one partition has not been assigned a size.";
+			e.appendChild(document.createElement('br'));
+		errOverlayDOM.appendChild(e);
+		validationPassed = false;
 	}
 	
 	// Check for OTA information
 	if (flatArray.match(/ota_/g) !== null) {
 		if (!(arrMatey.includes("ota"))) {
-			alert("OTA data partitions have been set, but an OTA information partition is missing.")
-			return false;
+			var e = document.createElement('b');
+				e.innerHTML = "- OTA data partitions have been set, but an OTA information partition is missing.";
+				e.appendChild(document.createElement('br'));
+			errOverlayDOM.appendChild(e);
+			validationPassed = false;
 		}
 	}
 	
-	return true;
+	if (validationPassed) {
+		return true;
+	} else {
+		toggleErrorOverlay();
+	}
 }
 
 function changeSize(sizeField) {
