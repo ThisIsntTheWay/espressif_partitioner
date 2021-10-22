@@ -9,20 +9,29 @@ function generateCSV() {
 }
 
 function validatePartitionTable() {
-	var dataArr = getData();
+	let totalSizeDOM = document.getElementById("totalSize");
+	let dataArr = getData();
 	
 	// Blanket data collection
-	var arrMatey = new Array();
-	var flatArray;
+	let arrMatey = new Array();
+	let flatArray;
 	for (var i = 1; i < dataArr.length; i++) {
 		arrMatey = arrMatey.concat(dataArr[i]);
 		flatArray += dataArr[i];
 	}
 	
+	if (totalSizeDOM.getAttributeNames().includes("class")) {
+		alert("Max flash size has been exceeded. Threshold: " + flashMaxSize + "mb");
+		return false;
+	} else if (isNaN(totalSizeDOM.value)) {
+		alert("At least one partition has not been assigned a size.");
+		return false;
+	}
+	
 	// Check for OTA information
 	if (flatArray.match(/ota_/g) !== null) {
 		if (!(arrMatey.includes("ota"))) {
-			alert("OTA information partition missing.")
+			alert("OTA data partitions have been set, but an OTA information partition is missing.")
 			return false;
 		}
 	}
