@@ -64,3 +64,23 @@ td input {
   transform: translate(-50%,-50%);
   -ms-transform: translate(-50%,-50%);
 }
+
+#sizeValue {
+  width: 75px;
+}
+
+#sizeHex {
+  width: 100px;
+}
+
+#totalSizeB {
+  font-family: "Courier New";  
+}
+
+#totalSizeKb {
+  font-family: "Courier New";
+}
+
+#totalSizeMb {
+  font-family: "Courier New";
+}

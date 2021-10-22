@@ -1,7 +1,7 @@
 var tableHeaders = new Array();
 var hasChanged = false;
 
-tableHeaders = ['', 'Name', 'Type', 'SubType', 'Offset', 'Size', 'Flags'];
+tableHeaders = ['', 'Name', 'Type', 'Subtype', 'Offset', 'Size', 'Flags'];
 
 function createTable() {
 	var partitionTable = document.createElement('table');
@@ -76,6 +76,18 @@ function addRow() {
 
 				td.appendChild(ele);
 				break;
+			
+			case 6:
+				var label = document.createElement('label');
+				label.innerHTML = "Encrypted";
+				
+				var ele = document.createElement('input');
+				ele.setAttribute('type', 'checkbox');
+				ele.setAttribute('id', 'flashEncryption');
+
+				label.appendChild(ele);
+				td.appendChild(label);
+				break;				
 				
 			default:
 				var ele = document.createElement('input');
