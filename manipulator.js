@@ -1,11 +1,45 @@
 var rawSize = 0;
 var referenceElementCaller;
 
+var flashMaxSize = 4;
+
+function generateCSV() {
+	if (validatePartitionTable()) {
+	}
+}
+
+function validatePartitionTable() {
+	var dataArr = getData();
+	
+	// Blanket data collection
+	var arrMatey = new Array();
+	var flatArray;
+	for (var i = 1; i < dataArr.length; i++) {
+		arrMatey = arrMatey.concat(dataArr[i]);
+		flatArray += dataArr[i];
+	}
+	
+	// Check for OTA information
+	if (flatArray.match(/ota_/g) !== null) {
+		if (!(arrMatey.includes("ota"))) {
+			alert("OTA information partition missing.")
+			return false;
+		}
+	}
+	
+	return true;
+}
+
 function changeSize(sizeField) {
 	var overlay = document.getElementById("overlay");
 	referenceElementCaller = sizeField;
 	
-	overlay.style.display = "block";	
+	overlay.style.display = "block";
+	
+	var sizeFieldDOM = document.getElementById("sizeValue");
+	
+	sizeFieldDOM.value = parseInt(sizeField.value, 16);
+	updateSizeValues(this);
 }
 
 function applySize() {
@@ -32,7 +66,7 @@ function updateStatistics() {
 	}
 	
 	size = parseFloat(size / 1000000);
-	if (size > 4) {
+	if (size > flashMaxSize) {
 		totalSizeDOM.setAttribute('class','warning');
 	} else {
 		totalSizeDOM.removeAttribute('class');
@@ -85,5 +119,4 @@ function updateSizeValues(referenceElement) {
 	}
 	
 	sizeHexDOM.value = parseInt(totalSizeBDOM.innerHTML).toString(16);
-	
 }
