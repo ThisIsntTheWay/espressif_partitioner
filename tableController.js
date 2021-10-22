@@ -125,14 +125,18 @@ function addRow() {
 				break;
 		}
 	}
+	
+	updateStatistics();
 }
 
 // function to delete a row.
-function removeRow(oButton) {
+function removeRow(oButton) {	
 	var empTab = document.getElementById('partitionTable');
 	empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // buttton -> td -> tr
 	
 	actualRows--;
+	
+	updateStatistics();
 }
 
 function setChangedFlag() {
