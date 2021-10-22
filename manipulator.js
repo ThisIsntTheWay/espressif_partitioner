@@ -1,10 +1,22 @@
 var rawSize = 0;
+var referenceElementCaller;
 
-function changeSize(textField) {
+function changeSize(sizeField) {
+	var overlay = document.getElementById("overlay");
+	referenceElementCaller = sizeField;
 	
+	overlay.style.display = "block";	
 }
 
-function updateSizeValues(referenceElement) {	
+function applySize() {
+	var overlay = document.getElementById("overlay");
+	if (overlay.style.display == "block") {
+		overlay.style.display = "none";
+		referenceElementCaller.value = document.getElementById("sizeHex").value;
+	}
+}
+
+function updateSizeValues(referenceElement) {
 	var sizeFieldDOM = document.getElementById("sizeValue");
 	var sizeUnitDOM = document.getElementById("sizeUnit");
 	var sizeHexDOM = document.getElementById("sizeHex");
@@ -49,14 +61,4 @@ function updateSizeValues(referenceElement) {
 	
 	sizeHexDOM.value = parseInt(totalSizeBDOM.innerHTML).toString(16);
 	
-}
-
-function toggleOverlay() {
-	var overlay = document.getElementById("overlay");
-	
-	if (overlay.style.display == "block") {
-		overlay.style.display = "none";
-	} else {
-		overlay.style.display = "block";
-	}		
 }

@@ -70,6 +70,15 @@ function addRow() {
 					
 				td.appendChild(drop);
 				break;
+			
+			case 5:
+				var ele = document.createElement('input');
+				ele.setAttribute('type', 'text');
+				ele.setAttribute('class', 'tableTextBox');
+				ele.setAttribute('onclick', 'changeSize(this)');
+				ele.setAttribute('value', '');
+
+				td.appendChild(ele);
 				
 			default:
 				var ele = document.createElement('input');
