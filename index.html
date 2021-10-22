@@ -21,7 +21,7 @@
 			</div>
 			
 			<p>			
-			<input type="button" value="Generate CSV">
+			<input type="button" onclick="validatePartitionTable()" value="Generate CSV">
 			
 			<div id="descriptionLayout">
 				<b>Partition types</b><br>
@@ -70,8 +70,18 @@
 					</tr>
 					<tr>
 						<td>app</td>
-						<td>ota_n</td>
+						<td>ota_<i>n</i></td>
 						<td>OTA partition (0 to 15)</td>
+					</tr>
+					<tr>
+						<td>app</td>
+						<td>spiffs</td>
+						<td>SPIFFS-compatible storage</td>
+					</tr>
+					<tr>
+						<td>app</td>
+						<td>fat</td>
+						<td>FAT-compatible storage</td>
 					</tr>
 					<tr>
 						<td>app</td>
