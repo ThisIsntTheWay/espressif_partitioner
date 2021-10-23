@@ -193,15 +193,16 @@ function updateSizeValues(referenceElement) {
 	
 	if (referenceElement.id == "sizeHex") {
 		rawSize = parseInt(sizeHexDOM.value, 16);
+	} else {
+		rawSize = sizeFieldDOM.value;
 	}
 	
 	// Determine proper source for rawSize calculation
 	switch (sizeUnitDOM.value) {
-		case 'b': rawSize = sizeFieldDOM.value; break;
-		case 'kb': rawSize = sizeFieldDOM.value / 1000; break;
-		case 'mb': rawSize = sizeFieldDOM.value / 1000000; break;
+		case 'b': break;
+		case 'kb': rawSize = rawSize / 1000; break;
+		case 'mb': rawSize = rawSize / 1000000; break;
 	}
-	
 
 	switch (sizeUnitDOM.value) {
 		case 'b':
@@ -221,5 +222,9 @@ function updateSizeValues(referenceElement) {
 			break;
 	}
 	
-	sizeHexDOM.value = parseInt(totalSizeBDOM.innerHTML).toString(16);
+	if (referenceElement.id == "sizeHex") {
+		sizeFieldDOM.value = rawSize;
+	} else {
+		sizeHexDOM.value = parseInt(totalSizeBDOM.innerHTML).toString(16);
+	}
 }
