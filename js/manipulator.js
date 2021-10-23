@@ -149,9 +149,19 @@ function changeSize(sizeField) {
 }
 
 function applySize() {
-	referenceElementCaller.value = "0x" + document.getElementById("sizeHex").value;
-	toggleSizeOverlay();
-	updateStatistics();
+	var hexVal = document.getElementById("sizeHex").value;
+	var c = document.getElementById("editorStatusText");
+	
+	if (parseInt(hexVal, 16) < 0) {
+		c.setAttribute("style","color: red")
+		c.innerHTML = "Size cannot be negative";
+	} else {
+		referenceElementCaller.value = "0x" + hexVal;
+		c.innerHTML = ""
+		
+		toggleSizeOverlay();
+		updateStatistics();
+	}
 }
 
 function toggleSizeOverlay() {
