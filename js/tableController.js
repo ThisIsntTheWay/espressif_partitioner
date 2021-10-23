@@ -1,6 +1,6 @@
 var tableHeaders = new Array();
 var hasChanged = false;
-var firstRun = true;
+var runs = 0;
 
 var actualRows = 0;
 
@@ -38,12 +38,14 @@ function addRow() {
 		// Populate table with elements
 		switch (c) {
 			case 0:			// add a button control.
-				var button = document.createElement('input');
-				button.setAttribute('type', 'button');
-				button.setAttribute('value', '-');
-				button.setAttribute('onclick', 'removeRow(this)');
+				if (runs > 2) {
+					var button = document.createElement('input');
+					button.setAttribute('type', 'button');
+					button.setAttribute('value', '-');
+					button.setAttribute('onclick', 'removeRow(this)');
 
-				td.appendChild(button);
+					td.appendChild(button);
+				}
 				break;
 				
 			case 2:
@@ -72,7 +74,7 @@ function addRow() {
 				break;
 				
 			case 4:
-				if (firstRun) {
+				if (runs < 5) {
 					var ele = document.createElement('input');
 					ele.setAttribute('type', 'text');
 					ele.setAttribute('class', 'tableTextBox');
@@ -81,7 +83,6 @@ function addRow() {
 
 					td.appendChild(ele);
 					
-					firstRun = false;
 				} else {
 					var ele = document.createElement('input');
 					ele.setAttribute('type', 'text');
@@ -124,6 +125,8 @@ function addRow() {
 				td.appendChild(ele);
 				break;
 		}
+		
+		runs += 1;
 	}
 	
 	updateStatistics();
@@ -132,10 +135,9 @@ function addRow() {
 // function to delete a row.
 function removeRow(oButton) {	
 	var empTab = document.getElementById('partitionTable');
-	empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // buttton -> td -> tr
+	empTab.deleteRow(oButton.parentNode.parentNode.rowIndex);
 	
 	actualRows--;
-	
 	updateStatistics();
 }
 
