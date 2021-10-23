@@ -3,8 +3,36 @@ var referenceElementCaller;
 
 var flashMaxSize = 4;
 
+function download(filename, text) {
+  var element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+
 function generateCSV() {
-	if (validatePartitionTable()) {
+	
+	if (validatePartitionTable() < 1) {
+		var assembledString = '';
+		
+		var d = getData();
+		for (var i = 0; i < d.length; i++) {
+			for (var c = 0; c < d[i].length; c++) {
+				if (c == d[i].length - 1) {
+					assembledString += d[i][c] + '\n';
+				} else {
+					assembledString += d[i][c] + ',';
+				}
+			}
+		}
+		
+		download("partition_table.csv", assembledString);
 	}
 }
 
@@ -17,11 +45,23 @@ function toggleErrorOverlay() {
 	}
 }
 
+function toggleWarnOverlay() {
+	var overlay = document.getElementById("warnOverlay");
+	if (overlay.style.display == "block") {
+		overlay.style.display = "none";
+	} else {
+		overlay.style.display = "block";
+	}
+}
+
 function validatePartitionTable() {
 	let totalSizeDOM = document.getElementById("totalSize");
 	let errOverlayDOM = document.getElementById("errorOverlayContentReasons");
+	let warnOverlayDOM = document.getElementById("warnOverlayContentReasons");
 	let dataArr = getData();
+	
 	let validationPassed = true;
+	let validationWarnings = false;
 	
 	// Blanket data collection
 	let arrMatey = new Array();
@@ -31,13 +71,20 @@ function validatePartitionTable() {
 		flatArray += dataArr[i];
 	}
 	
-	// Prepare error overlay
-	let child = errOverlayDOM.lastElementChild;
+	// Prepare overlays
+	var child = errOverlayDOM.lastElementChild;
 	while (child) {
 		errOverlayDOM.removeChild(child);
 		child = errOverlayDOM.lastElementChild;
 	}
 	
+	var child = warnOverlayDOM.lastElementChild;
+	while (child) {
+		warnOverlayDOM.removeChild(child);
+		child = warnOverlayDOM.lastElementChild;
+	}
+	
+	// Check size
 	var sizeVal = parseFloat(totalSizeDOM.innerText)
 	if (totalSizeDOM.getAttributeNames().includes("class")) {
 		var e = document.createElement('b');
@@ -54,7 +101,17 @@ function validatePartitionTable() {
 	}
 	
 	// Check for OTA information
-	if (flatArray.match(/ota_/g) !== null) {
+	console.log(flatArray.match(/ota_/g))
+	if (flatArray.match(/ota_/g)) {
+		console.log("is not null");
+		if (flatArray.match(/ota_/g).length < 2) {
+			var e = document.createElement('b');
+				e.innerHTML = "- Only one OTA data partition has been set.";
+				e.appendChild(document.createElement('br'));
+			warnOverlayDOM.appendChild(e);
+			validationWarnings = true;
+		}
+	} else {
 		if (!(arrMatey.includes("ota"))) {
 			var e = document.createElement('b');
 				e.innerHTML = "- OTA data partitions have been set, but an OTA information partition is missing.";
@@ -64,10 +121,15 @@ function validatePartitionTable() {
 		}
 	}
 	
+	// Determine whether to proceed or not
 	if (validationPassed) {
-		return true;
+		return 0;
+	} else if (validationWarnings) {
+		toggleWarnOverlay();
+		return 1;
 	} else {
 		toggleErrorOverlay();
+		return 2;
 	}
 }
 
@@ -80,6 +142,7 @@ function changeSize(sizeField) {
 	var sizeFieldDOM = document.getElementById("sizeValue");
 	
 	sizeFieldDOM.value = parseInt(sizeField.value, 16);
+	sizeFieldDOM.focus();
 	updateSizeValues(this);
 }
 
@@ -87,7 +150,7 @@ function applySize() {
 	var overlay = document.getElementById("overlay");
 	if (overlay.style.display == "block") {
 		overlay.style.display = "none";
-		referenceElementCaller.value = document.getElementById("sizeHex").value;
+		referenceElementCaller.value = "0x" + document.getElementById("sizeHex").value;
 	}
 	
 	updateStatistics();
@@ -126,8 +189,7 @@ function updateSizeValues(referenceElement) {
 	var totalSizeKbDOM = document.getElementById("totalSizeKb");
 	var totalSizeMbDOM = document.getElementById("totalSizeMb");
 	
-	if (referenceElement.id != "sizeHex") {
-	} else {
+	if (referenceElement.id == "sizeHex") {
 		rawSize = parseInt(sizeHexDOM.value, 16);
 	}
 	
