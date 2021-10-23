@@ -1,5 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
 
+body {
+  background-color: #000000d1;
+  color: white;
+}
+
+::selection {
+  color: black;
+  background: #b39400;
+}
+
+a:link {
+  color: white;
+}
+
+a:visited {
+  color: white;
+}
+
+a:hover {
+  color: yellow;
+}
+
 div {
   font-family: 'Montserrat', sans-serif;
 }
