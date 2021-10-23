@@ -74,17 +74,17 @@ function validatePartitionTable() {
 	}
 	
 	// Prepare overlays
-	var child = errOverlayDOM.lastElementChild;
-	while (child) {
-		errOverlayDOM.removeChild(child);
-		child = errOverlayDOM.lastElementChild;
-	}
-	
-	var child = warnOverlayDOM.lastElementChild;
-	while (child) {
-		warnOverlayDOM.removeChild(child);
-		child = warnOverlayDOM.lastElementChild;
-	}
+		var child = errOverlayDOM.lastElementChild;
+		while (child) {
+			errOverlayDOM.removeChild(child);
+			child = errOverlayDOM.lastElementChild;
+		}
+		
+		var child = warnOverlayDOM.lastElementChild;
+		while (child) {
+			warnOverlayDOM.removeChild(child);
+			child = warnOverlayDOM.lastElementChild;
+		}
 	
 	// Check size
 	var sizeVal = parseFloat(totalSizeDOM.innerText)
@@ -103,17 +103,11 @@ function validatePartitionTable() {
 	}
 	
 	// Check for OTA information
-	console.log(flatArray.match(/ota_/g))
-	if (flatArray.match(/ota_/g)) {
+	var t = flatArray.match(/ota_\d/g)
+	console.log("t is: " + t)
+	
+	if (t !== null) {
 		console.log("is not null");
-		if (flatArray.match(/ota_/g).length < 2) {
-			var e = document.createElement('b');
-				e.innerHTML = "- Only one OTA data partition has been set.";
-				e.appendChild(document.createElement('br'));
-			warnOverlayDOM.appendChild(e);
-			validationWarnings = true;
-		}
-	} else {
 		if (!(arrMatey.includes("ota"))) {
 			var e = document.createElement('b');
 				e.innerHTML = "- OTA data partitions have been set, but an OTA information partition is missing.";
@@ -121,18 +115,47 @@ function validatePartitionTable() {
 			errOverlayDOM.appendChild(e);
 			validationPassed = false;
 		}
+		
+		if (t.length < 2) {
+			var e = document.createElement('b');
+				e.innerHTML = "- Only one OTA data partition has been set.";
+				e.appendChild(document.createElement('br'));
+			warnOverlayDOM.appendChild(e);
+			validationWarnings = true;
+		} else {
+			if (arrayHasDuplicates(t)) {
+				var e = document.createElement('b');
+					e.innerHTML = "- Multiple OTA data partitions of the same index have been set.";
+					e.appendChild(document.createElement('br'));
+				errOverlayDOM.appendChild(e);
+				validationPassed = false;
+			}
+		}
 	}
 	
 	// Determine whether to proceed or not
 	if (validationPassed) {
 		return 0;
-	} else if (validationWarnings) {
-		toggleWarnOverlay();
+	} else if (!validationPassed) {
+		toggleErrorOverlay();
 		return 1;
 	} else {
-		toggleErrorOverlay();
+		toggleWarnOverlay();
 		return 2;
 	}
+}
+
+// https://stackoverflow.com/a/7376645
+function arrayHasDuplicates(array) {
+    var valuesSoFar = [];
+    for (var i = 0; i < array.length; ++i) {
+        var value = array[i];
+        if (valuesSoFar.indexOf(value) !== -1) {
+            return true;
+        }
+        valuesSoFar.push(value);
+    }
+    return false;
 }
 
 function changeSize(sizeField) {
