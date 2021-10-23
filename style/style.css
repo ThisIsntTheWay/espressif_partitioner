@@ -27,11 +27,11 @@ td input {
   width: 70%;
   float:left;
   margin-right: 10px;
-  border: 1px solid blue;
 }
 
 #statisticsLayout {
   overflow: hidden;
+  padding-left: 20px;
 }
 
 #descriptionLayout {
