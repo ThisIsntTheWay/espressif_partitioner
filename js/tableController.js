@@ -4,7 +4,7 @@ var runs = 0;
 
 var actualRows = 0;
 
-tableHeaders = ['', 'Name', 'Type', 'Subtype', 'Offset', 'Size', 'Flags'];
+tableHeaders = ['', 'Name', 'Type', 'SubType', 'Offset', 'Size', 'Flags'];
 
 function createTable() {
 	var partitionTable = document.createElement('table');
