@@ -6,8 +6,8 @@
 		
 		<script src="js/tableController.js"></script>
 		<script src="js/manipulator.js"></script>
-		<script src="jquery/jquery.csv.min.js"></script>
-		<script src="jquery/jquery.min.js"></script>
+		<script src="js/jquery/jquery.csv.min.js"></script>
+		<script src="js/jquery/jquery.min.js"></script>
 	</head>
 	
 	<body onLoad="createTable(); addRow();">
@@ -120,7 +120,19 @@
 			<div id="errorOverlayContent">
 				<h1>Invalid partition table</h1>
 				This partition table is invalid:
-				<div id="errorOverlayContentReasons"></div>				
+				<div id="errorOverlayContentReasons"></div><p>
+				
+				<i>Click anywhere to dismiss.</i>
+			</div>
+		</div>
+		
+		<div id="warnOverlay">
+			<div id="warnOverlayContent">
+				<h1>Partition table possibly unoptimized</h1>
+				This partition table is valid, but could have issues:
+				<div id="warnOverlayContentReasons"></div><p>
+				<input type="button" value="Abort" onclick="toggleWarnOverlay()"/>   
+				<input type="button" value="Proceed anyway" onclick="toggleWarnOverlay()"/>
 			</div>
 		</div>
 	</body>
