@@ -19,10 +19,12 @@ function download(filename, text) {
 function generateCSV() {
 	
 	if (validatePartitionTable() < 1) {
-		var assembledString = '';
+		var assembledString = "# Generated using espressif partition manager at: " + Date() + "\n";
 		
 		var d = getData();
 		for (var i = 0; i < d.length; i++) {
+			if (i == 0) { assembledString += "# "; }
+			
 			for (var c = 0; c < d[i].length; c++) {
 				if (c == d[i].length - 1) {
 					assembledString += d[i][c] + '\n';
