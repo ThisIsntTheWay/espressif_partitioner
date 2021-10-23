@@ -149,13 +149,17 @@ function changeSize(sizeField) {
 }
 
 function applySize() {
+	referenceElementCaller.value = "0x" + document.getElementById("sizeHex").value;
+	toggleSizeOverlay();
+	updateStatistics();
+}
+
+function toggleSizeOverlay() {
 	var overlay = document.getElementById("overlay");
+	
 	if (overlay.style.display == "block") {
 		overlay.style.display = "none";
-		referenceElementCaller.value = "0x" + document.getElementById("sizeHex").value;
 	}
-	
-	updateStatistics();
 }
 
 function updateStatistics() {
