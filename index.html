@@ -23,7 +23,7 @@
 				Partition count: <span id="partCount"></span><br>
 				Total size: <span id="totalSize"></span>mb<p>
 				
-				<input type="button" onclick="generateCSV()" value="Generate CSV"><br>
+				<input type="button" onclick="generateCSV(false)" value="Generate CSV"><br>
 				<input type="button" onclick="processCSV()" value="Import CSV..."><br>
 			</div>
 						
@@ -130,11 +130,11 @@
 		
 		<div id="warnOverlay">
 			<div id="warnOverlayContent">
-				<h1>Partition table possibly unoptimized</h1>
-				This partition table is valid, but could have issues:
+				<h1>Partition table possibly incomplete</h1>
+				This partition table is valid, but could have some issues:
 				<div id="warnOverlayContentReasons"></div><p>
 				<input type="button" value="Abort" onclick="toggleWarnOverlay()"/>   
-				<input type="button" value="Proceed anyway" onclick="toggleWarnOverlay()"/>
+				<input type="button" value="Proceed anyway" onclick="generateCSV(true)"/>
 			</div>
 		</div>
 	</body>

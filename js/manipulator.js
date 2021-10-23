@@ -16,9 +16,8 @@ function download(filename, text) {
   document.body.removeChild(element);
 }
 
-function generateCSV() {
-	
-	if (validatePartitionTable() < 1) {
+function generateCSV(bypass) {	
+	if (validatePartitionTable() < 1 || bypass == true) {
 		var assembledString = "# Generated using espressif partition manager at: " + Date() + "\n";
 		
 		var d = getData();
@@ -104,10 +103,8 @@ function validatePartitionTable() {
 	
 	// Check for OTA information
 	var t = flatArray.match(/ota_\d/g)
-	console.log("t is: " + t)
 	
 	if (t !== null) {
-		console.log("is not null");
 		if (!(arrMatey.includes("ota"))) {
 			var e = document.createElement('b');
 				e.innerHTML = "- OTA data partitions have been set, but an OTA information partition is missing.";
@@ -125,7 +122,7 @@ function validatePartitionTable() {
 		} else {
 			if (arrayHasDuplicates(t)) {
 				var e = document.createElement('b');
-					e.innerHTML = "- Multiple OTA data partitions of the same index have been set.";
+					e.innerHTML = "- Identical OTA data partitions have been set.";
 					e.appendChild(document.createElement('br'));
 				errOverlayDOM.appendChild(e);
 				validationPassed = false;
@@ -134,14 +131,14 @@ function validatePartitionTable() {
 	}
 	
 	// Determine whether to proceed or not
-	if (validationPassed) {
-		return 0;
-	} else if (!validationPassed) {
+	if (!validationPassed) {
 		toggleErrorOverlay();
 		return 1;
-	} else {
+	} else if (validationWarnings) {
 		toggleWarnOverlay();
 		return 2;
+	} else {
+		return 0;
 	}
 }
 
